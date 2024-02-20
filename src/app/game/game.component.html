@@ -12,7 +12,7 @@
               type="number" 
               [ngModel]="board[rowIndex][colIndex] == 0 ? '' : board[rowIndex][colIndex]"
               (ngModelChange)="updateBoardValue($event, rowIndex, colIndex)"
-              [disabled]="disablesPosition[rowIndex][colIndex]" 
+              [disabled]="disabledPositions[rowIndex][colIndex]" 
               (blur)="checkGame()">
     </div>
     <br>

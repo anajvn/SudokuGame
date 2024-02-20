@@ -13,7 +13,7 @@ export class GameComponent implements OnInit{
 
   initialBoard: number[][] = [];
   board: number[][] = [];
-  disablesPosition: boolean[][] = [];
+  disabledPositions: boolean[][] = [];
   gameEnded: boolean = false;
   correctGame: boolean = false;
 
@@ -26,7 +26,7 @@ export class GameComponent implements OnInit{
   initializeBoard():void{
     this.initialBoard = this.gameService.initializeBoard(this.level);
     this.board = this.initialBoard;
-    this.disablesPosition = this.gameService.getDisabled();
+    this.disabledPositions = this.gameService.getDisabled();
   }
 
   updateBoardValue(value: any, rowIndex: number, colIndex: number) {
@@ -48,12 +48,14 @@ export class GameComponent implements OnInit{
     }
   }
 
-  saveBoard(row: number, col: number, input:number):void{
-    this.board[row][col] == input;
-  }
-
   resetGame(): void{
-    this.board = this.initialBoard;
+    for(let i = 0; i< this.board.length; i++){
+      for(let j = 0; j < this.board[i].length; j++){
+        if(!this.disabledPositions[i][j]){
+          this.board[i][j] = 0;
+        }
+      }
+    }
   }
 
   newGame(): void{
