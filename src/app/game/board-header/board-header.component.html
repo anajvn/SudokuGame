@@ -1,0 +1,17 @@
+<div id="level-select">
+    <div>
+        <select class="level-select" name="select" [(ngModel)]="currentLevel" (change)="newLevel()">
+            <option value="1">EASY</option>
+            <option value="2" selected>MEDIUM</option>
+            <option value="3">HARD</option>
+        </select>
+    </div>
+    <div class="sudoku-timer">
+        {{ timer*1000 | date: 'mm:ss' }}
+        <button class="timer-button" (click)="pauseTimer()">||</button>
+    </div>
+</div>
+<div id="buttons">
+    <button class="game-button" (click)="newGame()">NEW GAME</button>
+    <button class="game-button" (click)="reset()">RESET</button>
+</div>

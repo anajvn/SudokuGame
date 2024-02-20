@@ -1,0 +1,22 @@
+<app-board-header id="board-header"
+                  (resetGame)="resetGame()"
+                  (changeGame)="newGame()"
+                  (changeLevel)="changeLevel($event)"
+                  [currentLevel]="level">
+</app-board-header>
+
+<div class="sudoku-board"> 
+  <div class="row" *ngFor="let rowIndex of [0, 1, 2, 3, 4, 5, 6, 7, 8]" >
+    <div class="cell" *ngFor="let colIndex of [0, 1, 2, 3, 4, 5, 6, 7, 8]">
+      <input class="cell-input"
+              type="number" 
+              [ngModel]="board[rowIndex][colIndex] == 0 ? '' : board[rowIndex][colIndex]"
+              (ngModelChange)="updateBoardValue($event, rowIndex, colIndex)"
+              [disabled]="disablesPosition[rowIndex][colIndex]" 
+              (blur)="checkGame()">
+    </div>
+    <br>
+  </div>
+</div>
+  
+  

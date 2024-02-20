@@ -1,0 +1,48 @@
+#board-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sudoku-board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+}
+
+.cell-row {
+  margin-bottom: 5px;
+}
+
+.cell {
+  width: 40px;
+  height: 40px;
+  margin: 2px;
+  text-align: center;
+}
+
+.cell-input {
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  text-align: center;
+}
+
+/* Hide increment and decrement arrows */
+.cell-input::-webkit-inner-spin-button,
+.cell-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.cell-input[type=number] {
+    -moz-appearance: textfield; /* Para Firefox */
+}
+
+input{
+  border-width: thin;
+}
+

@@ -1,0 +1,12 @@
+<!-- <div id="start-section" *ngIf="!gameStarted">
+    <button id="start-button" (click)="startGame()">START</button>
+</div>
+<div id="level-section" *ngIf="gameStarted && !levelChosen">
+    <button class="level-button" (click)="chooseLevel(1)">EASY</button><br>
+    <button class="level-button" (click)="chooseLevel(2)">MEDIUM</button><br>
+    <button class="level-button" (click)="chooseLevel(3)">HARD</button><br>
+</div>
+<div id="game-section" *ngIf="gameStarted && levelChosen">
+    <app-game [level]="level"></app-game>
+</div> -->
+<app-game [level]="1"></app-game>
