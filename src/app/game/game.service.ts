@@ -17,6 +17,7 @@ export class GameService{
     this.board = this.startEmptyArray();
   }
 
+  // Fill the board with 0 values in every cell
   private startEmptyArray(): number[][]{
     let emptyBoard = [];
     for(let i = 0; i < 9 ; i++){
@@ -97,8 +98,8 @@ export class GameService{
     return true;
   }
 
+
   private createPositionsFilled():void{
-    //while(this.positionsFilled.length < 79){
     while(this.positionsFilled.length < this.amountPositionsFilled){
       let line = Math.floor(Math.random()*9);
       let column = Math.floor(Math.random()*9);
@@ -109,13 +110,14 @@ export class GameService{
     }
   }
 
+  // Fill the public board getting the values randomly chosen to be disabled in the solution board 
   getNumbers(): void{
     for(let position of this.positionsFilled){
       this.board[position[0]][position[1]] = this.completedBoard[position[0]][position[1]]
     }
   }
 
-  
+  // Check the row to se if there are equal numbers in it.
   checkRow(value: number, row: number): boolean {
     // return false if there is an equal number in that line
     // return true if there is not
@@ -125,6 +127,7 @@ export class GameService{
     }
     return true;
   }
+  // Check the column to se if there are equal numbers in it.
   checkColumn(value: number, column: number): boolean {
     // return false if there is an equal number in that column
     // return true if there is not
@@ -135,6 +138,7 @@ export class GameService{
     }
     return true;
   }
+  // Check the quadrant to se if there are equal numbers in it.
   checkQuadrant (value: number, row: number, column: number): boolean{
     let i = row < 3 ? 0 : (row < 6 ? 3 : 6);
     let j = column < 3 ? 0 : (column < 6 ? 3 : 6);
@@ -152,13 +156,13 @@ export class GameService{
     return true;
   }
 
-  // Check if the board is completed
+  // Check if the board is completed and has no number 0's.
   checkBoard(): boolean{
     return !this.completedBoard.some(row => row.includes(0));
     
   }
 
-
+  // Create a list of position that will be disabled so the board has some numbers already filled in.
   getDisabled(): boolean[][]{
     let disabled: boolean [][] = [];
     for (let i = 0; i< this.board.length; i++){
@@ -170,6 +174,7 @@ export class GameService{
     return disabled; 
   }
 
+  // Called when the board is completed, check if the board matches with the solution created 
   checkGame(board: number[][]){
     for(let i = 0; i < 9; i++){
       for(let j = 0; j < 9; j++){
