@@ -1,7 +1,7 @@
 #level-select {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin: 20px auto;
 }
 
 #level-select {
@@ -21,7 +21,7 @@
     padding: 5px 10px;
     margin-left: 10px;
     font-size: 14px;
-    background-color: #007bff;
+    background-color: #008CBA;
     color: white;
     border: none;
     border-radius: 3px;
@@ -29,12 +29,13 @@
 }
 
 .timer-button:hover {
-    background-color: #0056b3;
+    background-color: #007B9F;
 }
 
 #buttons {
-    text-align: center;
-    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
 }
 
 .game-button {
@@ -49,9 +50,22 @@
 }
 
 .game-button:last-child {
-    margin-right: 0;
+    margin-right: 120px;
 }
 
 .game-button:hover {
     background-color: #218838;
+}
+
+.tips-button {
+    padding: 3px 10px;
+    font-size: 18px;
+    background-color: #008CBA;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.tips-button:hover{
+    background-color: #007B9F;
 }

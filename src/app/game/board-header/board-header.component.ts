@@ -21,6 +21,12 @@ export class BoardHeaderComponent implements OnInit {
 
   @Output()
   changeLevel: EventEmitter<number> = new EventEmitter();
+  
+  @Output()
+  tips: EventEmitter<boolean> = new EventEmitter(false);
+
+  @Output()
+  hideBoard: EventEmitter<boolean> = new EventEmitter(false);
 
   ngOnInit(): void {
     this.isTimerDisabled = false;
@@ -37,6 +43,7 @@ export class BoardHeaderComponent implements OnInit {
 
   pauseTimer(){
     this.isTimerDisabled = !this.isTimerDisabled;
+    this.hideBoard.emit(true);
   }
 
   reset(): void{
@@ -50,6 +57,10 @@ export class BoardHeaderComponent implements OnInit {
   newLevel(): void{
     this.timer = 0;
     this.changeLevel.emit(this.currentLevel);
+  }
+
+  giveTips():void{
+    this.tips.emit(true);
   }
   
 }

@@ -1,22 +1,37 @@
+<div class="board">
 <app-board-header id="board-header"
                   (resetGame)="resetGame()"
                   (changeGame)="newGame()"
                   (changeLevel)="changeLevel($event)"
+                  (tips)="giveTips()"
+                  (hideBoard)="hideBoard()"
                   [currentLevel]="level">
 </app-board-header>
 
 <div class="sudoku-board"> 
   <div class="row" *ngFor="let rowIndex of [0, 1, 2, 3, 4, 5, 6, 7, 8]" >
     <div class="cell" *ngFor="let colIndex of [0, 1, 2, 3, 4, 5, 6, 7, 8]">
-      <input class="cell-input"
+      <div [ngClass]="{'hide-board': boardHidden}"></div>
+      <input *ngIf="!boardHidden"
+              class="cell-input border-bottom border-right"
               type="number" 
               [ngModel]="board[rowIndex][colIndex] == 0 ? '' : board[rowIndex][colIndex]"
               (ngModelChange)="updateBoardValue($event, rowIndex, colIndex)"
               [disabled]="disabledPositions[rowIndex][colIndex]" 
-              (blur)="checkGame()">
+              (blur)="checkGame()"
+              [ngClass]="{'border-left': quadrantDelimitation(colIndex), 'border-top': quadrantDelimitation(rowIndex), 'wrong-value':isWrong(rowIndex, colIndex)}">
     </div>
     <br>
   </div>
 </div>
+<div class="show-correct">
+  <span>CHECK ERRORS: </span>
+  <label class="switch">
+    <input type="checkbox" [(ngModel)]="checkErrors">
+    <span class="slider"></span>
+  </label>
+</div>
+</div>
+
   
   

@@ -28,19 +28,21 @@ export class GameService{
 
   public initializeBoard(level: number): number[][]{
     this.resetBoard();
-    console.log(this.completedBoard);
-
+    
     // obtain the amount of position filled using the level
     switch(level){
       case 1:
-          this.amountPositionsFilled = 38;
+          this.amountPositionsFilled = 45;
           break;
       case 2:
-          this.amountPositionsFilled = 30;
+          this.amountPositionsFilled = 35;
           break;
       case 3:
           this.amountPositionsFilled = 25;
           break;
+      case 4:
+        this.amountPositionsFilled = 20;
+        break;
     }
 
     // create positions
@@ -78,7 +80,7 @@ export class GameService{
     return false;
   } 
 
-  isValidPlacement(row: number, col: number, num: number): boolean {
+  private isValidPlacement(row: number, col: number, num: number): boolean {
     // Check row and column
     for (let i = 0; i < 9; i++) {
       if (this.completedBoard[row][i] === num || this.completedBoard[i][col] === num) {
@@ -98,7 +100,6 @@ export class GameService{
     return true;
   }
 
-
   private createPositionsFilled():void{
     while(this.positionsFilled.length < this.amountPositionsFilled){
       let line = Math.floor(Math.random()*9);
@@ -111,14 +112,14 @@ export class GameService{
   }
 
   // Fill the public board getting the values randomly chosen to be disabled in the solution board 
-  getNumbers(): void{
+  private getNumbers(): void{
     for(let position of this.positionsFilled){
       this.board[position[0]][position[1]] = this.completedBoard[position[0]][position[1]]
     }
   }
 
   // Check the row to se if there are equal numbers in it.
-  checkRow(value: number, row: number): boolean {
+  private checkRow(value: number, row: number): boolean {
     // return false if there is an equal number in that line
     // return true if there is not
     
@@ -128,7 +129,7 @@ export class GameService{
     return true;
   }
   // Check the column to se if there are equal numbers in it.
-  checkColumn(value: number, column: number): boolean {
+  private checkColumn(value: number, column: number): boolean {
     // return false if there is an equal number in that column
     // return true if there is not
     for(let i=0; i<9; i++){
@@ -139,7 +140,7 @@ export class GameService{
     return true;
   }
   // Check the quadrant to se if there are equal numbers in it.
-  checkQuadrant (value: number, row: number, column: number): boolean{
+  private checkQuadrant (value: number, row: number, column: number): boolean{
     let i = row < 3 ? 0 : (row < 6 ? 3 : 6);
     let j = column < 3 ? 0 : (column < 6 ? 3 : 6);
 
@@ -155,13 +156,12 @@ export class GameService{
     }
     return true;
   }
-
   // Check if the board is completed and has no number 0's.
-  checkBoard(): boolean{
+  private checkBoard(): boolean{
     return !this.completedBoard.some(row => row.includes(0));
     
   }
-
+  
   // Create a list of position that will be disabled so the board has some numbers already filled in.
   getDisabled(): boolean[][]{
     let disabled: boolean [][] = [];
@@ -174,16 +174,44 @@ export class GameService{
     return disabled; 
   }
 
+  giveTips(): number[]{
+    let solution = [];
+    while(solution.length == 0){
+      let line = Math.floor(Math.random()*9);
+      let column = Math.floor(Math.random()*9);
+      
+      if(!this.positionsFilled.some(pos => pos[0] == line && pos[1] == column)){
+        this.positionsFilled.push([line, column]);
+        solution.push(line);
+        solution.push(column);
+        solution.push(this.completedBoard[line][column])
+      }
+    }
+    return solution;
+  }
+
   // Called when the board is completed, check if the board matches with the solution created 
   checkGame(board: number[][]){
     for(let i = 0; i < 9; i++){
       for(let j = 0; j < 9; j++){
         if(this.completedBoard[i][j] != board[i][j]){
-          alert("Not Finished");
+          alert("Ops! There is something wrong. Try again!");
           return;
         }
       }
     }
-    alert("Finished");
+    alert("Yay, you got it!");
+  }
+
+  getWrongValues(board: number[][]): number[][]{
+    let response = [];
+    for(let i = 0; i < 9; i++){
+      for(let j = 0; j < 9; j++){
+        if(board[i][j] != 0 && this.completedBoard[i][j] != board[i][j] ){
+          response.push([i, j]);
+        }
+      }
+    }
+    return response;
   }
 }

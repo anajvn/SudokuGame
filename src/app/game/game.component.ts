@@ -16,6 +16,11 @@ export class GameComponent implements OnInit{
   disabledPositions: boolean[][] = [];
   gameEnded: boolean = false;
   correctGame: boolean = false;
+  tipsGiven: number = 0;
+  boardHidden: boolean = false;
+  checkErrors: boolean = false;
+
+  wrongValues: number[][] = [];
 
   constructor(private gameService: GameService){}
 
@@ -31,6 +36,8 @@ export class GameComponent implements OnInit{
 
   updateBoardValue(value: any, rowIndex: number, colIndex: number) {
     this.board[rowIndex][colIndex] = value != '' ? parseInt(value, 10) : 0;
+
+    this.wrongValues = this.gameService.getWrongValues(this.board);
   }
   
   isComplete(): boolean{
@@ -68,5 +75,32 @@ export class GameComponent implements OnInit{
   changeLevel(newLevel: number): void{
     this.level = Number(newLevel);
     this.initializeBoard();
+  }
+
+  giveTips():void{
+    if(this.tipsGiven < 3){
+      let tips = this.gameService.giveTips();
+      this.board[tips[0]][tips[1]] = tips[2];
+      this.tipsGiven ++;
+    } else {
+      alert('You can only use 3 tips.')
+    }
+  }
+
+  hideBoard():void{
+    this.boardHidden = !this.boardHidden;
+  }
+
+  quadrantDelimitation(position:number):boolean{
+    return position == 3 || position == 0 || position == 6
+  }
+
+  isWrong(rowIndex: number, colIndex:number): boolean{
+    if(this.checkErrors){
+      if(this.wrongValues.some(pos => pos[0] == rowIndex && pos[1] == colIndex )){
+        return true;
+      }
+    }
+    return false;
   }
 }

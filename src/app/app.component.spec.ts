@@ -14,10 +14,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'sudoku-ts'`, () => {
+  it(`should have as title 'Sudoku'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('sudoku-ts');
+    expect(app.title).toEqual('Sudoku');
   });
 
   it('should render title', () => {
